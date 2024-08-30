@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class ObjectCube : MonoBehaviour
+public class Cube : MonoBehaviour
 {
     [SerializeField] private int _splitChance;
 

@@ -26,7 +26,6 @@ public class Explosioner : MonoBehaviour
             if (item.attachedRigidbody != null)
             {
                 cubes.Add(item.attachedRigidbody);
-                Debug.Log("Cube Add");
             }
         }
 

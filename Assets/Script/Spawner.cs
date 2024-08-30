@@ -11,22 +11,22 @@ public class Spawner : MonoBehaviour
     public void Spawn(Transform parentCube)
     {
         GameObject newCube;
-        ObjectCube parentCubeParams;
-        ObjectCube cubeParams;
+        Cube parentCubeParams;
+        Cube cubeParams;
         Explosioner explosioner;
         Painter painter;
         int reductionFactor = 2;
 
         _numberCubes = Random.Range(_minNumberCubes, _maxNumberCubes);
 
-        parentCubeParams = parentCube.GetComponent<ObjectCube>();
+        parentCubeParams = parentCube.GetComponent<Cube>();
 
         if (isCanSplit(parentCubeParams.SplitChance))
         {
             for (int i = 0; i < _numberCubes; i++)
             {
                 newCube = Instantiate(_cube, parentCube.position, Quaternion.identity);
-                cubeParams = newCube.GetComponent<ObjectCube>();
+                cubeParams = newCube.GetComponent<Cube>();
                 cubeParams.SetScale(parentCubeParams.Scale / reductionFactor);
                 cubeParams.SetSplitChance(parentCubeParams.SplitChance / reductionFactor);
 
