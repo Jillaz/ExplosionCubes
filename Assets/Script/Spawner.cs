@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class Spawner : MonoBehaviour
 {
-    [SerializeField] private GameObject _cube;
+    [SerializeField] private Cube _cube;
     [SerializeField] private int _minNumberCubes = 2;
     [SerializeField] private int _maxNumberCubes = 4;
 
@@ -10,7 +10,7 @@ public class Spawner : MonoBehaviour
 
     public void Spawn(Transform parentCube)
     {
-        GameObject newCube;
+        Cube newCube;
         Cube parentCubeParams;
         Cube cubeParams;
         Explosioner explosioner;
