@@ -7,14 +7,21 @@ public class Cube : MonoBehaviour
     public Vector3 Scale => transform.localScale;
     public int SplitChance => _splitChance;
 
-    public void SetScale(Vector3 scale)
+    public void Init(Vector3 scale, int splitChance)
     {
         transform.localScale = scale;
+        _splitChance = splitChance;        
     }
 
-    public void SetSplitChance(int splitChance)
+    public bool IsCanSplit()
     {
-        _splitChance = splitChance;
+        int minSplitChance = 0;
+        int maxSplitChance = 101;
+        int chance;
+
+        chance = Random.Range(minSplitChance, maxSplitChance);       
+
+        return chance <= _splitChance;
     }
 }
 

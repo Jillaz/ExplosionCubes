@@ -1,8 +1,10 @@
 using UnityEngine;
 
+[RequireComponent(typeof(Renderer))]
+
 public class Painter : MonoBehaviour
 {
-    private Renderer _renderer;   
+    private Renderer _renderer;
 
     public void SetRandomColor()
     {

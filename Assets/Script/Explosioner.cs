@@ -6,20 +6,22 @@ public class Explosioner : MonoBehaviour
     [SerializeField] float _explosionRadius;
     [SerializeField] float _explosionForce;
 
-    public void Explode()
+    public void Explode(Cube cube)
     {
-        List<Rigidbody> explodingObjects = GetExplodableCubes();
+        List<Rigidbody> explodingObjects = GetExplodableCubes(cube);
 
         foreach (var item in explodingObjects)
         {
-            item.AddExplosionForce(_explosionForce, transform.position, _explosionForce);
+            item.AddExplosionForce(_explosionForce, cube.transform.position, _explosionForce);
         }
+
+        Destroy(cube.gameObject);
     }
 
-    private List<Rigidbody> GetExplodableCubes()
+    private List<Rigidbody> GetExplodableCubes(Cube cube)
     {
         List<Rigidbody> cubes = new();
-        Collider[] hits = Physics.OverlapSphere(transform.position, _explosionRadius);
+        Collider[] hits = Physics.OverlapSphere(cube.transform.position, _explosionRadius);
 
         foreach (Collider item in hits)
         {

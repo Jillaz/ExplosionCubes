@@ -3,21 +3,33 @@ using UnityEngine;
 public class RayCast : MonoBehaviour
 {
     [SerializeField] private Camera _camera;
-    [SerializeField] private Ray _ray;
     [SerializeField] private Spawner _spawner;
+    [SerializeField] private Explosioner _explosioner;
 
     private void Update()
     {
+        Ray _ray;
         RaycastHit hit;
-        _ray = _camera.ScreenPointToRay(Input.mousePosition);
+        Cube cube;
+        int _primaryMouseButtonIndex = 0;
 
-        if (Physics.Raycast(_ray, out hit, Mathf.Infinity))
+        if (Input.GetMouseButtonDown(_primaryMouseButtonIndex))
         {
-            Transform objectHit = hit.transform;
+            _ray = _camera.ScreenPointToRay(Input.mousePosition);
 
-            if (Input.GetMouseButtonDown(0))
+            if (Physics.Raycast(_ray, out hit, Mathf.Infinity))
             {
-                _spawner.Spawn(objectHit);
+                if (hit.collider.TryGetComponent(out cube))
+                {
+                    if (cube.IsCanSplit() == true)
+                    {
+                        _spawner.Spawn(cube);
+                    }
+                    else
+                    {
+                        _explosioner.Explode(cube);
+                    }
+                }
             }
         }
     }
