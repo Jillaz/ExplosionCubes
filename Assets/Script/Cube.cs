@@ -1,5 +1,8 @@
 using UnityEngine;
 
+[RequireComponent (typeof(Painter))]
+[RequireComponent (typeof(Pusher))]
+
 public class Cube : MonoBehaviour
 {
     [SerializeField] private int _splitChance;
@@ -13,15 +16,28 @@ public class Cube : MonoBehaviour
         _splitChance = splitChance;        
     }
 
-    public bool IsCanSplit()
+    public bool CanSplit()
     {
         int minSplitChance = 0;
-        int maxSplitChance = 101;
+        int maxSplitChance = 100;
         int chance;
 
         chance = Random.Range(minSplitChance, maxSplitChance);       
 
         return chance <= _splitChance;
+    }
+
+    public void ChangeColor()
+    {
+        Painter painter = GetComponent<Painter>();
+        painter.SetRandomColor();
+    }
+
+    public void Push()
+    {
+        Pusher pusher = GetComponent<Pusher>();
+
+        pusher.Push();
     }
 }
 

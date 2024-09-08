@@ -6,22 +6,23 @@ public class RayCast : MonoBehaviour
     [SerializeField] private Spawner _spawner;
     [SerializeField] private Explosioner _explosioner;
 
+    private int _primaryMouseButtonIndex = 0;
+
     private void Update()
     {
-        Ray _ray;
-        RaycastHit hit;
-        Cube cube;
-        int _primaryMouseButtonIndex = 0;
-
         if (Input.GetMouseButtonDown(_primaryMouseButtonIndex))
         {
-            _ray = _camera.ScreenPointToRay(Input.mousePosition);
+            Ray ray;
+            RaycastHit hit;
+            Cube cube;
 
-            if (Physics.Raycast(_ray, out hit, Mathf.Infinity))
+            ray = _camera.ScreenPointToRay(Input.mousePosition);
+
+            if (Physics.Raycast(ray, out hit, Mathf.Infinity))
             {
                 if (hit.collider.TryGetComponent(out cube))
                 {
-                    if (cube.IsCanSplit() == true)
+                    if (cube.CanSplit() == true)
                     {
                         _spawner.Spawn(cube);
                     }

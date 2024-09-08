@@ -12,7 +12,7 @@ public class Explosioner : MonoBehaviour
 
         foreach (var item in explodingObjects)
         {
-            item.AddExplosionForce(_explosionForce, cube.transform.position, _explosionForce);
+            item.AddExplosionForce(_explosionForce, cube.transform.position, _explosionRadius);
         }
 
         Destroy(cube.gameObject);
