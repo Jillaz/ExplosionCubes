@@ -5,6 +5,8 @@ public class Explosioner : MonoBehaviour
 {
     [SerializeField] float _explosionRadius;
     [SerializeField] float _explosionForce;
+    [SerializeField] float _bornExplosionRadius;
+    [SerializeField] float _bornExplosionForce;
 
     public void Explode(Cube cube)
     {
@@ -16,6 +18,14 @@ public class Explosioner : MonoBehaviour
         }
 
         Destroy(cube.gameObject);
+    }
+
+    public void Explode(List<Rigidbody> cubes, Vector3 explosionPosition)
+    {
+        foreach (var item in cubes)
+        {
+            item.AddExplosionForce(_bornExplosionForce, explosionPosition, _bornExplosionRadius);
+        }
     }
 
     private List<Rigidbody> GetExplodableCubes(Cube cube)

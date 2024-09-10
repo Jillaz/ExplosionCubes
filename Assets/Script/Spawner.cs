@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class Spawner : MonoBehaviour
@@ -8,9 +9,10 @@ public class Spawner : MonoBehaviour
 
     private int _numberCubes;
 
-    public void Spawn(Cube parentCube)
+    public List<Rigidbody> Spawn(Cube parentCube)
     {
         Cube newCube;
+        List<Rigidbody> cubes = new List<Rigidbody>();
         int reductionFactor = 2;
 
         _numberCubes = Random.Range(_minNumberCubes, _maxNumberCubes+1);        
@@ -20,10 +22,12 @@ public class Spawner : MonoBehaviour
             newCube = Instantiate(_cube, parentCube.transform.position, Quaternion.Euler(SetDirection()));
             newCube.Init(parentCube.Scale / reductionFactor, parentCube.SplitChance / reductionFactor);
             newCube.ChangeColor();
-            newCube.Push();
+            cubes.Add(newCube.GetComponent<Collider>().attachedRigidbody);
         }
 
         Destroy(parentCube.gameObject);
+
+        return cubes;
     }
 
     private Vector3 SetDirection()
@@ -31,8 +35,8 @@ public class Spawner : MonoBehaviour
         float rotationX;
         float rotationY;
         float rotationZ;
-        float minRotationAngle = 0;
-        float maxRotationAngle = 360;
+        float minRotationAngle = 0f;
+        float maxRotationAngle = 360f;
 
         rotationX = Random.Range(minRotationAngle, maxRotationAngle);
         rotationY = Random.Range(minRotationAngle, maxRotationAngle);

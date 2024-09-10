@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class RayCast : MonoBehaviour
@@ -15,6 +16,8 @@ public class RayCast : MonoBehaviour
             Ray ray;
             RaycastHit hit;
             Cube cube;
+            List<Rigidbody> cubes;
+            Vector3 parentCubePosition;
 
             ray = _camera.ScreenPointToRay(Input.mousePosition);
 
@@ -24,10 +27,12 @@ public class RayCast : MonoBehaviour
                 {
                     if (cube.CanSplit() == true)
                     {
-                        _spawner.Spawn(cube);
+                        parentCubePosition = cube.transform.position;
+                        cubes = _spawner.Spawn(cube);
+                        _explosioner.Explode(cubes, parentCubePosition);
                     }
                     else
-                    {
+                    {                        
                         _explosioner.Explode(cube);
                     }
                 }

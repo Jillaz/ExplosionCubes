@@ -1,7 +1,7 @@
 using UnityEngine;
 
 [RequireComponent (typeof(Painter))]
-[RequireComponent (typeof(Pusher))]
+[RequireComponent (typeof(Collider))]
 
 public class Cube : MonoBehaviour
 {
@@ -31,13 +31,6 @@ public class Cube : MonoBehaviour
     {
         Painter painter = GetComponent<Painter>();
         painter.SetRandomColor();
-    }
-
-    public void Push()
-    {
-        Pusher pusher = GetComponent<Pusher>();
-
-        pusher.Push();
     }
 }
 
