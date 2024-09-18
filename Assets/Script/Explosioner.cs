@@ -11,10 +11,27 @@ public class Explosioner : MonoBehaviour
     public void Explode(Cube cube)
     {
         List<Rigidbody> explodingObjects = GetExplodableCubes(cube);
+        Vector3 distance;
+        float calculatedExplosionForce;
+        float explosionForcePerUnitDistance;
+        float explosionForceScaleFactor;
+        float explosionForceFactor;
+
+        explosionForcePerUnitDistance = _explosionForce / _explosionRadius;
+        explosionForceScaleFactor = _explosionForce / cube.Scale.x;
+        explosionForceFactor = explosionForcePerUnitDistance * explosionForceScaleFactor;
 
         foreach (var item in explodingObjects)
         {
-            item.AddExplosionForce(_explosionForce, cube.transform.position, _explosionRadius);
+            distance = item.transform.position - cube.transform.position;
+
+            if (distance.magnitude >= _explosionRadius)
+            {
+                continue;
+            }
+
+            calculatedExplosionForce = explosionForceFactor * (_explosionRadius - distance.magnitude);
+            item.AddExplosionForce(calculatedExplosionForce, cube.transform.position, _explosionRadius);
         }
 
         Destroy(cube.gameObject);
@@ -42,5 +59,5 @@ public class Explosioner : MonoBehaviour
         }
 
         return cubes;
-    }
+    }    
 }
