@@ -13,7 +13,8 @@ public class Cube : MonoBehaviour
     public void Init(Vector3 scale, int splitChance)
     {
         transform.localScale = scale;
-        _splitChance = splitChance;        
+        _splitChance = splitChance;
+        ChangeColor();
     }
 
     public bool CanSplit()
@@ -27,7 +28,14 @@ public class Cube : MonoBehaviour
         return chance <= _splitChance;
     }
 
-    public void ChangeColor()
+    public Rigidbody GetRigidbody() 
+    {
+        Collider collider = GetComponent<Collider>();
+
+        return collider.attachedRigidbody;
+    }
+
+    private void ChangeColor()
     {
         Painter painter = GetComponent<Painter>();
         painter.SetRandomColor();

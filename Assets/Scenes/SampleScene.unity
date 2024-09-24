@@ -564,6 +564,10 @@ PrefabInstance:
       propertyPath: _splitChance
       value: 100
       objectReference: {fileID: 0}
+    - target: {fileID: 9063178684643769316, guid: df1f0ad2ddcf6aa4dab1af5de0b0dc65, type: 3}
+      propertyPath: _explosionRadius
+      value: 40
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -857,7 +861,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4739d2d00557a2f4db7e6b7150194876, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _explosionRadius: 500
+  _explosionRadius: 50
   _explosionForce: 50
   _bornExplosionRadius: 300
   _bornExplosionForce: 1000

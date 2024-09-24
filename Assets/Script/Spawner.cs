@@ -19,10 +19,9 @@ public class Spawner : MonoBehaviour
 
         for (int i = 0; i < _numberCubes; i++)
         {
-            newCube = Instantiate(_cube, parentCube.transform.position, Quaternion.Euler(SetDirection()));
-            newCube.Init(parentCube.Scale / reductionFactor, parentCube.SplitChance / reductionFactor);
-            newCube.ChangeColor();
-            cubes.Add(newCube.GetComponent<Collider>().attachedRigidbody);
+            newCube = Instantiate(parentCube, parentCube.transform.position, Quaternion.Euler(GetDirection()));
+            newCube.Init(parentCube.Scale / reductionFactor, parentCube.SplitChance / reductionFactor);            
+            cubes.Add(newCube.GetRigidbody());
         }
 
         Destroy(parentCube.gameObject);
@@ -30,7 +29,7 @@ public class Spawner : MonoBehaviour
         return cubes;
     }
 
-    private Vector3 SetDirection()
+    private Vector3 GetDirection()
     {
         float rotationX;
         float rotationY;
