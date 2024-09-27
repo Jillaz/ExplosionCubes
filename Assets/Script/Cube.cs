@@ -1,19 +1,25 @@
 using UnityEngine;
 
-[RequireComponent (typeof(Painter))]
-[RequireComponent (typeof(Collider))]
-
+[RequireComponent(typeof(Painter))]
+[RequireComponent(typeof(Collider))]
 public class Cube : MonoBehaviour
 {
-    [SerializeField] private int _splitChance;
+    private Painter _painter;
+    private Collider _collider;
 
+    [field: SerializeField] public int SplitChance { get; private set; }
     public Vector3 Scale => transform.localScale;
-    public int SplitChance => _splitChance;
+
+    private void Awake()
+    {
+        _collider = GetComponent<Collider>();
+        _painter = GetComponent<Painter>();
+    }
 
     public void Init(Vector3 scale, int splitChance)
     {
         transform.localScale = scale;
-        _splitChance = splitChance;
+        SplitChance = splitChance;
         ChangeColor();
     }
 
@@ -23,22 +29,19 @@ public class Cube : MonoBehaviour
         int maxSplitChance = 100;
         int chance;
 
-        chance = Random.Range(minSplitChance, maxSplitChance);       
+        chance = Random.Range(minSplitChance, maxSplitChance);
 
-        return chance <= _splitChance;
+        return chance <= SplitChance;
     }
 
-    public Rigidbody GetRigidbody() 
+    public Rigidbody GetRigidbody()
     {
-        Collider collider = GetComponent<Collider>();
-
-        return collider.attachedRigidbody;
+        return _collider.attachedRigidbody;
     }
 
     private void ChangeColor()
     {
-        Painter painter = GetComponent<Painter>();
-        painter.SetRandomColor();
+        _painter.SetRandomColor();
     }
 }
 
